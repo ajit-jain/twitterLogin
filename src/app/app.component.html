@@ -1,0 +1,57 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav pull-right">
+      <li *ngIf="_authService.isLoggedIn()"><a href="javascript::void(0)" (click)="_authService.logout()">Logout</a></li>
+      <li *ngIf="!_authService.isLoggedIn()"><a href="javascript::void(0)"  data-toggle="modal"
+        (click)="authType='log_in'" data-target="#authModal">LogIn</a></li>
+      <li *ngIf="!_authService.isLoggedIn()"><a href="javascript::void(0)" data-toggle="modal"
+        (click)="authType='sign_up'" data-target="#authModal">Signup</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div>FoodSubs App</div>
+<!-- Modal -->
+<div class="modal fade" id="authModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <div class="modal-dialog">
+      <div class="loginmodal-container" 
+      *ngIf="authType=='log_in'">
+        <h1>Login to Your Account</h1><br>
+        <form [formGroup]="loginForm">
+            <input type="text" name="email" formControlName="email" placeholder="Email">
+            <input type="password" name="password" formControlName="password" placeholder="Password">
+            <button type="button" (click)="login(loginForm.value)" [disabled]="!loginForm.valid"
+             name="login" class="login loginmodal-submit" >LogIn</button>
+        </form>
+        
+        <div class="login-help">
+        <a href="javascript::void(0)" (click)="authType='sign_up'">Signup</a> 
+        <button (click)="getTwitterDialog()">twitter Login</button>
+        </div>
+      </div>
+      <form *ngIf="authType=='sign_up'" class="loginmodal-container">
+          <h1>Signup to Your Account</h1><br>
+          <form>
+          <input type="text" name="name" placeholder="name">
+          
+          <input type="text" name="user" placeholder="Username">
+          <input type="password" name="pass" placeholder="Password">
+          <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+          </form>
+          
+          <div class="login-help">
+          <a href="javascript::void(0)" (click)="authType='log_in'">logIn</a> 
+          </div>
+        </form>
+      
+    </div>    
+  </div>
+</div>
+
+
